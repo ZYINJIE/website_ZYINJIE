@@ -1,5 +1,5 @@
 /* ============================================
-   胤捷的小破站 v4 —— 唯一的 JS 文件
+   阿澈的小破站 v4 —— 唯一的 JS 文件
    功能：时钟 / 假留言板 / 文章展开 / 彩蛋
    彩蛋提示：去按 Konami 秘技，或者连点三次 ©
    ============================================ */
@@ -42,6 +42,12 @@
     try { localStorage.setItem(KEY, JSON.stringify(arr)); } catch (e) {}
   }
 
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
   function renderMsgs() {
     if (!list) return;
     const msgs = loadMsgs();
@@ -54,12 +60,6 @@
         '<span class="gb-when">' + m.time + "</span></span>" +
         escapeHtml(m.text) + "</li>";
     }).join("");
-  }
-
-  function escapeHtml(s) {
-    return String(s)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
   if (form) {
@@ -105,33 +105,73 @@
     }
   });
 
-  /* ---------- 6. 彩蛋 B：连点三次 © → 发一张奖状 ---------- */
-  let clicks = 0, clickTimer = null;
-  document.querySelectorAll(".site-foot p").forEach(function (p) {
-    if (!p.textContent.includes("©")) return;
-    p.addEventListener("click", function () {
+  /* ---------- 6. 彩蛋 B：连点三次 © ----------
+     修复说明：
+     1. 不再挑"包含©的那一行"，直接监听整个页脚 —— 以前用
+        includes("©") 判断，文件编码不是 UTF-8 时 © 会对不上，
+        彩蛋就静默失效了。现在点页脚任意文字都算。
+     2. 每点一下弹小气泡提示，点到第几下看得见。
+     3. 两次点击间隔放宽到 2 秒。
+  */
+  (function () {
+    const foot = document.querySelector(".site-foot");
+    if (!foot) return;
+
+    let clicks = 0;
+    let timer = null;
+
+    function toast(msg) {
+      let t = document.getElementById("site-toast");
+      if (!t) {
+        t = document.createElement("div");
+        t.id = "site-toast";
+        t.style.cssText =
+          "position:fixed;left:50%;bottom:28px;transform:translateX(-50%);" +
+          "background:#1c1b18;color:#f7f3ea;padding:7px 18px;border-radius:20px;" +
+          "font-size:.85rem;z-index:2000;opacity:0;transition:opacity .25s;" +
+          "box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:none;";
+        document.body.appendChild(t);
+      }
+      t.textContent = msg;
+      t.style.opacity = "1";
+      clearTimeout(t._hide);
+      t._hide = setTimeout(function () { t.style.opacity = "0"; }, 1000);
+    }
+
+    foot.addEventListener("click", function (e) {
+      // 点到链接（比如 humans.txt）不算
+      if (e.target.closest && e.target.closest("a")) return;
+
       clicks++;
-      clearTimeout(clickTimer);
-      clickTimer = setTimeout(function () { clicks = 0; }, 1500);
-      if (clicks === 3) {
+      clearTimeout(timer);
+      timer = setTimeout(function () { clicks = 0; }, 2000);
+
+      if (clicks === 1) toast("还有 2 下 →");
+      else if (clicks === 2) toast("还有 1 下 →");
+      else {
         clicks = 0;
-        const d = document.createElement("div");
-        d.style.cssText =
-          "position:fixed;inset:0;display:flex;align-items:center;justify-content:center;" +
-          "background:rgba(28,27,24,.6);z-index:1000;";
-        d.innerHTML =
-          '<div style="background:#fdfbf4;border:2px solid #1c1b18;border-radius:8px;' +
-          'padding:30px 40px;text-align:center;box-shadow:8px 8px 0 rgba(0,0,0,.2);">' +
-          "<p style='font-size:2rem;margin:0'>🏅</p>" +
-          "<h3 style='margin:.4em 0'>恭喜你找到隐藏彩蛋</h3>" +
-          "<p>奖励：一句真诚的"真闲"。</p>" +
-          "<p style='font-size:.8rem;color:#6b665a'>这个彩蛋只对三种人有效：无聊的人、认真的人、以及既无聊又认真的人。</p>" +
-          "<button id='egg-close' style='margin-top:10px;padding:6px 20px;cursor:pointer'>收下奖状</button></div>";
-        document.body.appendChild(d);
-        d.querySelector("#egg-close").addEventListener("click", function () { d.remove(); });
+        toast("🎉 找到了！");
+        showEgg();
       }
     });
-  });
+
+    function showEgg() {
+      const d = document.createElement("div");
+      d.style.cssText =
+        "position:fixed;inset:0;display:flex;align-items:center;justify-content:center;" +
+        "background:rgba(28,27,24,.6);z-index:3000;";
+      d.innerHTML =
+        '<div style="background:#fdfbf4;border:2px solid #1c1b18;border-radius:8px;' +
+        'padding:28px 38px;text-align:center;box-shadow:8px 8px 0 rgba(0,0,0,.2);max-width:90%;">' +
+        "<p style='font-size:2rem;margin:0'>🏅</p>" +
+        "<h3 style='margin:.4em 0'>恭喜你找到隐藏彩蛋</h3>" +
+        "<p>奖励：一句真诚的「真闲」。</p>" +
+        "<p style='font-size:.8rem;color:#6b665a'>这个彩蛋只对三种人有效：无聊的人、认真的人、以及既无聊又认真的人。</p>" +
+        "<button id='egg-close' style='margin-top:10px;padding:6px 22px;cursor:pointer;font-size:.95rem'>收下奖状</button></div>";
+      document.body.appendChild(d);
+      d.querySelector("#egg-close").addEventListener("click", function () { d.remove(); });
+    }
+  })();
 
   /* ---------- 7. console 留言（给翻开发者工具的人） ---------- */
   console.log("%c嘿，别翻了，这里没有秘密。", "color:#3d6b4f;font-size:18px;font-weight:bold");
