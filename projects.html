@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>做的东西 — 胤捷的小破站</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏚️</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap head-flex">
+    <a href="index.html" class="logo">胤捷的小破站</a>
+    <p class="tagline">做的东西（烂尾率 55%，先说明）</p>
+  </div>
+  <nav class="nav">
+    <div class="wrap">
+      <a href="index.html">主页</a>
+      <a href="about.html">关于我</a>
+      <a href="notes.html">随便写写</a>
+      <a href="projects.html" class="on">做的东西</a>
+      <a href="links.html">好朋友</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap page">
+
+  <h1>做的东西</h1>
+  <p class="muted">每个项目都有一个状态：<span class="st ok">能用</span> / <span class="st meh">勉强能用</span> / <span class="st dead">烂尾</span>。诚实是本站的底线。</p>
+
+  <section class="project">
+    <div class="p-head">
+      <h2>喵了个提醒 <span class="st ok">能用</span></h2>
+      <span class="p-year">2025</span>
+    </div>
+    <p>一个给健忘的人用的桌面小提醒，界面是个猫，猫饿了就说明你有事没做完。<b>真的有人每天在用</b>——那个人是我妈。</p>
+    <p class="tech">HTML + localStorage · 无后端 · 一个文件</p>
+  </section>
+
+  <section class="project">
+    <div class="p-head">
+      <h2>菜谱回收站 <span class="st meh">勉强能用</span></h2>
+      <span class="p-year">2024</span>
+    </div>
+    <p>把网上那些"盐少许、糖适量"的菜谱翻译成人话。后来发现翻译"少许"到底是多少这件事本身就很难，目前只翻译了 3 道菜。</p>
+    <p class="tech">Vue 都没用 · 纯手写 · 数据库是一个 JSON 文件</p>
+  </section>
+
+  <section class="project">
+    <div class="p-head">
+      <h2>今天不加班 <span class="st dead">烂尾</span></h2>
+      <span class="p-year">2023</span>
+    </div>
+    <p>一个记录"今天几点下班"的打卡网站，目的是统计证明我们组加班有多严重。<b>上线第二天我自己先忘了打卡</b>，数据缺口太大，项目终结。</p>
+    <p class="tech">前后端都有 · 部署在 512M 内存的服务器上 · 现在那台服务器在跑一个植物大战僵尸改版</p>
+  </section>
+
+  <section class="project">
+    <div class="p-head">
+      <h2>这个网站 <span class="st ok">能用</span></h2>
+      <span class="p-year">永远</span>
+    </div>
+    <p>你正在看的这个。也是我做过的最成功的项目——因为它的验收标准就是"能打开就行"。</p>
+  </section>
+
+  <p class="back"><a href="index.html">← 回主页</a></p>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap"><p>© 2019–2026 胤捷 · 做的东西比做完的东西多</p></div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

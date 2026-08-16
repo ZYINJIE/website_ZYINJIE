@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>胤捷的小破站 — 第 4 版（前 3 版都找不到了）</title>
+<meta name="description" content="一个没什么用的个人网站，建于深夜，更新随缘。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏚️</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap head-flex">
+    <a href="index.html" class="logo">胤捷的小破站<span class="ver">v4</span></a>
+    <p class="tagline">没有广告，没有 cookie，没有分析工具。<br>我甚至不知道你有没有来过。</p>
+  </div>
+  <nav class="nav">
+    <div class="wrap">
+      <a href="index.html" class="on">主页</a>
+      <a href="about.html">关于我</a>
+      <a href="notes.html">随便写写</a>
+      <a href="projects.html">做的东西</a>
+      <a href="links.html">好朋友</a>
+      <span class="clock" id="clock">----:--:--</span>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <p class="kicker">// 欢迎光临，鞋套不用脱</p>
+    <h1>你好，我是<em>胤捷</em>。</h1>
+    <p class="lead">
+      白天是一个平平无奇的学生，晚上是一个<b>自称全栈</b>的业余程序员。
+      这个网站始建于某年某月某日凌晨两点半，之后每年改一次版式，改完就忘。
+    </p>
+    <p class="note">※ 本站内容 70% 是碎碎念，20% 是烂尾项目，10% 是给我自己看的备忘。</p>
+  </section>
+
+  <section class="cards">
+    <a href="about.html" class="card">
+      <span class="card-num">01</span>
+      <h2>关于我</h2>
+      <p>会做饭，不会修电脑。技能表里全是诚实的数据。</p>
+    </a>
+    <a href="notes.html" class="card">
+      <span class="card-num">02</span>
+      <h2>随便写写</h2>
+      <p>更新频率约等于我健身房去的频率（懂的都懂）。</p>
+    </a>
+    <a href="projects.html" class="card">
+      <span class="card-num">03</span>
+      <h2>做的东西</h2>
+      <p>已上线 3 个，烂尾 5 个，被朋友征用 1 个。</p>
+    </a>
+  </section>
+
+  <section class="now">
+    <h2><span class="h-mark">▸</span> 此刻</h2>
+    <p>在学习，在焦虑（第三天，目前处于<b>非常焦虑</b>），</p>
+    <p>在改这个网站的导航栏，因为觉得"好朋友"这个叫法有点肉麻但又不想改。</p>
+    <p class="muted">最后更新：<span id="nowdate">正在算……</span></p>
+  </section>
+
+  <section class="latest-notes">
+    <h2><span class="h-mark">▸</span> 最近写的</h2>
+    <ul>
+      <li><a href="notes.html#n1">关于拖延症的阶段性总结（未完）</a> <span class="date">2026-08-02</span></li>
+      <li><a href="notes.html#n2">给十年后的自己留个纸条</a> <span class="date">2026-05-20</span></li>
+      <li><a href="notes.html#n3">我为什么戒不掉博客（即使没人看）</a> <span class="date">2026-01-11</span></li>
+    </ul>
+    <a href="notes.html" class="more">全部碎碎念 →</a>
+  </section>
+
+  <section class="guestbook">
+    <h2><span class="h-mark">▸</span> 留言板</h2>
+    <p class="muted">不用注册，不用登录，说句话就走也行。数据存在你自己的浏览器里，<b>你只能看到自己的留言</b>——对，这是个假留言板，但仪式感是真的。</p>
+    <form id="gb-form">
+      <input type="text" id="gb-name" placeholder="你的名字（或绰号）" maxlength="20" required>
+      <textarea id="gb-text" rows="3" placeholder="想说的话" maxlength="200" required></textarea>
+      <button type="submit">留言</button>
+    </form>
+    <ul id="gb-list" class="gb-list"></ul>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>© 2019–2026 胤捷. 本站使用 100% 手工 CSS，零框架，零构建工具。</p>
+    <p class="muted">建站于凌晨 · 最后一次大改版是今天 · 下次改版：不知道</p>
+    <p class="muted">本页加载时间：约等于你眨一次眼。用 IE 打开的话，当我没说。</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
